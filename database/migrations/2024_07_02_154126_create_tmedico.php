@@ -29,6 +29,7 @@ class CreateTmedico extends Migration
             $table->string('telefone', 20)->nullable();
             $table->string('celular', 20)->nullable();
             $table->string('email', 100)->nullable();
+            $table->char('ativo', 1)->default('1');
         });
     }
 
