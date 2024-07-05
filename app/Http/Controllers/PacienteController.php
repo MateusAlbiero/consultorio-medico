@@ -4,25 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\Paciente;
 use App\Models\Views\vPaciente;
-use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Response;
 
-class PacienteController extends BaseController
+class PacienteController extends Controller
 {
     public function index() {
-        return view('', compact('user'));   
+        return view('');   
     }
 
     public function cadastro($id = null) {
-        $paciente                       = null;
+        $paciente = null;
 
         if($id){
-            $paciente                   = vPaciente::where('controle',$id)->first();
+            $paciente = vPaciente::where('controle',$id)->first();
             
             if(!$paciente) 
                 abort(404);
         }
-        return view('', compact('user', 'paciente'));   
+        return view('', compact('paciente'));   
     }
 
     public function buscar($id = null) {
@@ -162,7 +162,7 @@ class PacienteController extends BaseController
 
             return Response::json([
                 'status' => 'success',
-                'message' => 'Dados gravados com sucesso.'
+                'message' => 'Dados salvos com sucesso.'
             ]);
         } catch (\Exception $e) {
             return Response::json([

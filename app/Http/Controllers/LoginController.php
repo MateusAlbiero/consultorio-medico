@@ -4,17 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
     public function redirecionarLogin() {
-        return redirect()->route('inicio');
+        return redirect()->route('');
     }
 
     public function index() {
-        return view('auth.login');
+        return view('');
     }
 
     public function entrar(Request $request) {
@@ -24,19 +25,19 @@ class LoginController extends Controller
         ];
 
         $mensagens = [
-            'login.required' => 'Campo obrigatório',
-            'senha.required' => 'Campo obrigatório',
+            '' => 'Campo obrigatório',
+            '' => 'Campo obrigatório',
         ];
 
         $request->validate($regras, $mensagens);
 
         $credentials = [
-            'cnpjcpf' => preg_replace('/[^0-9]/', '', $request->get('login')),
+            'cpf' => preg_replace('/[^0-9]/', '', $request->get('login')),
             'password' => $request->get('senha'),
         ];
 
         
-        $user = User::where('cnpjcpf', $credentials['cnpjcpf'])->first();
+        $user = User::where('cpf', $credentials['cpf'])->first();
         if(!$user)
             return redirect()->back()->withInput()->withErrors(['login' => 'Conta não encontrada']);
 

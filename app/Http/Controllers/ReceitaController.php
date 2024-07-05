@@ -2,32 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Receita;
 use App\Models\Views\vReceita;
-use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Response;
 
-class ReceitaController extends BaseController
+class ReceitaController extends Controller
 {
     public function index() {
         return view('');   
     }
 
     public function cadastro($id = null) {
-        $receita                       = null;
+        $receita = null;
 
         if($id){
-            $receita                   = vReceita::where('controle',$id)->first();
+            $receita = vReceita::where('controle',$id)->first();
             
             if(!$receita) 
                 abort(404);
         }
-        return view('', compact('Receita'));   
+        return view('', compact('receita'));   
     }
 
     public function busca($id = null) {
-        $query = vReceita::select('controle', 'prescricao', 'dosagem')
-                         ->where('ativo', '1');
+        $query = vReceita::select('controle', 'prescricao', 'dosagem');
         
         if (!$id) {
             $d = request()->get('d');
@@ -56,8 +54,7 @@ class ReceitaController extends BaseController
                     'controle',
                     'prescricao',
                     'dosagem'
-                )
-                ->where('ativo', '1');
+        );
 
         $receitas = $query->get();
     }
@@ -67,7 +64,7 @@ class ReceitaController extends BaseController
         
         if(!$dados->prescricao){
             $camposInvalidos[] = '#prescricao';
-            $mensagemInvalidos[] = '* Campo obrigatório';
+            $mensagemInvalidos[] = '* Campo obriório';
         }
 
         if(!$dados->dataprescricao){

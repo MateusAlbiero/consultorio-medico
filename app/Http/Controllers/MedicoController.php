@@ -4,25 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\Medico;
 use App\Models\Views\vMedico;
-use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Response;
 
-class MedicoController extends BaseController
+class MedicoController extends Controller
 {
     public function index() {
         return view('');   
     }
 
     public function cadastro($id = null) {
-        $medico                       = null;
+        $medico = null;
 
         if($id){
-            $medico                   = vMedico::where('controle',$id)->first();
+            $medico = vMedico::where('controle',$id)->first();
             
             if(!$medico) 
                 abort(404);
         }
-        return view('', compact('Medico'));   
+        return view('', compact('medico'));   
     }
 
     public function busca($id = null) {
@@ -168,7 +168,7 @@ class MedicoController extends BaseController
 
             return Response::json([
                 'status' => 'success',
-                'message' => 'Dados gravados com sucesso.'
+                'message' => 'Dados salvos com sucesso.'
             ]);
         } catch (\Exception $e) {
             return Response::json([
